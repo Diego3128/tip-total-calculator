@@ -5,7 +5,7 @@
 Tip Calculator is a small React-based project built with TypeScript. It allows users to calculate the total bill including tips, dynamically updating the UI based on user input. The project showcases state management, hooks, and TypeScript usage in a React application.  
 
 
-### Demo Video  
+### Demo Online 
 [Online Preview](https://tiptotalcalculator.netlify.app/)  
 
 ---

@@ -94,7 +94,7 @@ TIP_CALCULATOR/
 ## Technologies Used 🛠️  
 - React  
 - TypeScript  
-- React Hooks (useState, props, useMemo)  
+- React Hooks (useState, useMemo)  
 - Tailwind for styling  
 - Vite for fast development  
 

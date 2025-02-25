@@ -1,13 +1,15 @@
-import { menuItems } from './data/db';
-import { useOrder } from './hooks/useOrder';
-import { MenuItem } from './components/MenuItem';
-import OrderContent from './components/OrderContent';
-import OrderTotal from './components/OrderTotal';
-import { TipPercentageForm } from './components/TipPercentageForm';
+import { menuItems } from "./data/db";
+import { MenuItem } from "./components/MenuItem";
+import OrderContent from "./components/OrderContent";
+import OrderTotal from "./components/OrderTotal";
+import { TipPercentageForm } from "./components/TipPercentageForm";
+
+import { useReducer } from "react";
+import { initialState, orderReducer } from "./reducers/orderReducer";
 
 function App() {
 
-  const { order, tip, setTip, addItem, removeItem, placeOrder } = useOrder();
+  const [orderState, orderDispatch] = useReducer(orderReducer, initialState);
 
   return (
     <>
@@ -19,13 +21,19 @@ function App() {
 
       <main className="mx-auto max-w-7xl mt-10 p-6 px-6 grid md:grid-cols-2 gap-6 md:gap-14">
         <div className="relative min-h-72 bg-gray-800 p-5 rounded-xl shadow-lg">
-          {order.length ? (
+          {orderState.orderItems.length ? (
             <>
-              <OrderContent order={order} removeItem={removeItem} />
+              <OrderContent
+                orderItems={orderState.orderItems}
+                orderDispatch={orderDispatch}
+              />
 
-              <TipPercentageForm setTip={setTip} tip={tip} />
+              <TipPercentageForm
+                orderDispatch={orderDispatch}
+                tip={orderState.tip}
+              />
 
-              <OrderTotal order={order} tip={tip} placeOrder={placeOrder} />
+              <OrderTotal orderItems={orderState.orderItems} tip={orderState.tip} orderDispatch={orderDispatch} />
             </>
           ) : (
             <p className="text-gray-400 text-center absolute inset-0 flex items-center justify-center text-2xl h-60 md:h-auto">
@@ -43,14 +51,14 @@ function App() {
               <MenuItem
                 key={item.id}
                 item={item}
-                addItem={addItem}
+                orderDispatch={orderDispatch}
               />
             ))}
           </div>
         </div>
       </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
